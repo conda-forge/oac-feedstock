@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   python_min: "3.11"
-  version: "0.16.0"
+  version: "2.8.3"
 
 package:
   name: oac
@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://github.com/dlr-pa/oac/archive/v${{ version }}.tar.gz
-  sha256: 7f6845fcd24ba22b0f90016b315b9146c6d5ea0f802a45577a65260fc26e0caf
+  sha256: d0a8fabe3d8c8fe78509e8db54b30856b46e68b321711be35a75e133b717563c
 
 build:
   number: 0
