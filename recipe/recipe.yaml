@@ -16,26 +16,38 @@ build:
   number: 0
   noarch: python
   script: ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  python:
+    entry_points:
+      - oac-run = openairclim.__main__:main
+      - oac-gui = openairclim.gui.__main__:main
+      - oac-download-data = openairclim.repository:main
+      - oac-download-zenodo = openairclim.utils.download_zenodo:main
+      - oac-create-artificial-inventories = openairclim.utils.create_artificial_inventories:main
+      - oac-create-time-evolution = openairclim.utils.create_time_evolution:main
 
 requirements:
   host:
     - python ${{ python_min }}.*
-    - setuptools
+    - setuptools >=61.0
     - pip
   run:
     - python >=${{ python_min }}
-    - setuptools
+    - ambiance
+    - cf-units
+    - deepmerge
     - joblib
+    - matplotlib-base
+    - netcdf4
     - numpy
     - pandas
-    - toml
-    - matplotlib-base
-    - cf-units
-    - xarray
-    - netcdf4
+    - pandas <3
+    - pint
+    - platformdirs
+    - pydantic
+    - requests
     - scipy
-    - deepmerge
-    - ambiance
+    - toml
+    - xarray
 
 tests:
   - python:
@@ -45,6 +57,17 @@ tests:
       python_version:
         - ${{ python_min }}.*
         - "*"
+  - requirements:
+      run:
+        - pip
+        - python ${{ python_min }}.*
+    script:
+      - oac-run --help
+      - oac-gui --help
+      - oac-download-data --help
+      - oac-download-zenodo --help
+      - oac-create-artificial-inventories --help
+      - oac-create-time-evolution --help
 
 about:
   summary: OpenAirClim is a model for simplified evaluation of the approximate chemistry-climate impact of air traffic emissions.
